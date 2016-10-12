@@ -1,0 +1,51 @@
+<style media="screen">
+  body {
+    font-family: Tahoma,Helvetica,sans-serif;
+  }
+  td {
+    padding: 8px;
+  }
+</style>
+<h3>
+  <%= Date::MONTHNAMES[params[:month].to_i - 1] %>
+  <%= params[:year] %>
+  NY CTO Club Guests
+</h3>
+<table>
+  <tr>
+    <th>
+      Photo
+    </th>
+    <th>
+      Name &amp; Headline
+    </th>
+    <th>
+      Guest of
+    </th>
+    <th>
+      Times attended
+    </th>
+  </tr>
+  <% @guests.each do |guest| %>
+    <tr>
+      <td>
+        <% if guest.linkedin_profile.try(:photo_url).present? %>
+          <img src="<%= guest.linkedin_profile.photo_url %>"  style="max-height:180px; max-width:180px;">
+        <% else %>
+          No photo available.
+        <% end %>
+      </td>
+      <td style="max-width:400px">
+        <a href="<%= guest.linkedin_url %>"><%= guest.full_name %></a>
+        <br>
+        <%= guest.headline %>
+      </td>
+      <td>
+        <%= guest.guest_of %>
+      </td>
+      <td>
+        <%= guest.num_times_attended == 0 ? 'First-timer' : guest.num_times_attended %>
+      </td>
+    </tr>
+  <% end %>
+</table>

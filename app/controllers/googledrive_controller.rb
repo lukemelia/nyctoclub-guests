@@ -1,0 +1,2 @@
+class GoogledriveController < ApplicationController
+end
